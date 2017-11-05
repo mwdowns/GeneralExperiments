@@ -1,19 +1,35 @@
-function rot13(str) { // LBH QVQ VG!
-  var words = str.split(" ");
-  var punctuation = "";
-  var lastWord = words[words.length - 1];
-  if ( lastWord.charCodeAt(lastWord.length - 1) < 65 || lastWord.charCodeAt(lastWord.length - 1) > 90) {
-    punctuation = lastWord.slice(-1);
-    words[words.length - 1] = lastWord.substr(0, lastWord.length - 1);
+function punctuationChecker(word) {
+
+  var possiblePunc = word.charCodeAt(word.length -1 );
+  if ( possiblePunc > 32 && possiblePunc < 48) {
+    return word.slice(-1);
   }
+
+}
+
+function cipher(str, offset) { // LBH QVQ VG!
+  var punctuation = "";
+  var words = str.split(" ").map(function(word) {
+    punctuation = punctuationChecker(word);
+    console.log(punctuation);
+    if (punctuation) {
+      word = word.substr(0, word.length -1 );
+    }
+    console.log(word);
+    // for (var i = 0; i < word.length; i++) {
+
+    // }
+    return word;
+  });
+  
   var wordsArray = words.map(function(x) {
     return x.split("").map(function(y) {
       var code = y.charCodeAt(0);
       var newCode = 0;
       if (code >= 78 && code <= 90) {
-        newCode = code - 13;
+        newCode = code - offset;
       } else {
-        newCode = code + 13;
+        newCode = code + offset;
       }
       return String.fromCharCode(newCode);
     });
@@ -27,4 +43,4 @@ function rot13(str) { // LBH QVQ VG!
 }
 
 // Change the inputs below to test
-console.log(rot13("SERR PBQR PNZC!"));
+console.log(cipher("SERR PBQR PNZC!", 13));
