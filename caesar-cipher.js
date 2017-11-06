@@ -8,13 +8,16 @@ function punctuationChecker(word) {
 function checkLetterPosition(code, offset, purpose) {
   if (offset === 13) {
     return (code >= 78 && code <= 90) || (code >= 110 && code <= 122);
-  } else {
-    if (purpose === "encode") {
+  } 
+  if ((offset > 0 && offset < 10) || (offset === 24) || offset === 25) {
+    console.log('caught');
+    // if (purpose === "encode") {
+    //   return (code >= (90 - offset) && code <= 90) || (code >= (122 - offset) && code <= 122);
+    // } else {
+      // return (code >= 65 && code <= (90 - offset)) || (code >= 97 && code <= (122 - offset));
       return (code >= (90 - offset) && code <= 90) || (code >= (122 - offset) && code <= 122);
-    } else {
-      return (code >= 65 && code <= (90 - offset)) || (code >= 97 && code <= (122 - offset));
-    }
-  }
+    // }
+  } 
 }
 
 function newLetterEncode (code, offset) {
@@ -44,13 +47,12 @@ function changeString(word, punctuation, offset, purpose) {
   for (var i = 0; i < word.length; i++) {
     var code = word[i].charCodeAt(0);
     var newCode = 0;
-    // var offsetAdjuster = offsetChecker(offset);
     if (purpose === "encode") {
       newCode = newLetterEncode(code, offset);
     } else {
       newCode = newLetterDecode(code, offset);
     }
-    console.log(code, newCode, offset);
+    // console.log(code, newCode, offset);
     newWord.push(String.fromCharCode(newCode));
   }
   if (punctuation) {
@@ -81,11 +83,25 @@ function cipher(str, offset, purpose) { // LBH QVQ VG!
 // Change the inputs below to test
 // var message = cipher("Serr", 13, "decode");
 // console.log(message);
-var newMessage = cipher("Fe", 1, "encode");
+// console.log(cipher("Serr", 13, "decode"));
+var encodeThis = "Up your mama's nose!"
+
+var newMessage = cipher(encodeThis, 1, "encode");
 console.log(newMessage);
-// console.log(cipher("Fe", 12, "encode"));
-// console.log(cipher("Fe", 13, "encode"));
-// console.log(cipher("Fe", 14, "encode"));
-// console.log(cipher("Fe", 25, "encode"));
 console.log(cipher(newMessage, 1, "decode"));
-console.log(cipher("Serr", 13, "decode"));
+// 1 to 9 works and 13, 24, 25 work.
+var newMessage2 = cipher(encodeThis, 12, "encode");
+console.log(newMessage2);
+console.log(cipher(newMessage2, 12, "decode"));
+
+var newMessage3 = cipher(encodeThis, 14, "encode");
+console.log(newMessage3);
+console.log(cipher(newMessage3, 14, "decode"));
+
+var newMessage4 = cipher(encodeThis, 20, "encode");
+console.log(newMessage4);
+console.log(cipher(newMessage4, 20, "decode"));
+
+var newMessage5 = cipher(encodeThis, 6, "encode");
+console.log(newMessage5);
+console.log(cipher(newMessage5, 6, "decode"));
