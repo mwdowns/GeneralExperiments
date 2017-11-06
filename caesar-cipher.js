@@ -84,24 +84,73 @@ function cipher(str, offset, purpose) { // LBH QVQ VG!
 // var message = cipher("Serr", 13, "decode");
 // console.log(message);
 // console.log(cipher("Serr", 13, "decode"));
-var encodeThis = "Up your mama's nose!"
+// var encodeThis = "Up your mama's nose!"
 
-var newMessage = cipher(encodeThis, 1, "encode");
-console.log(newMessage);
-console.log(cipher(newMessage, 1, "decode"));
-// 1 to 9 works and 13, 24, 25 work.
-var newMessage2 = cipher(encodeThis, 12, "encode");
-console.log(newMessage2);
-console.log(cipher(newMessage2, 12, "decode"));
+// var newMessage = cipher(encodeThis, 1, "encode");
+// console.log(newMessage);
+// console.log(cipher(newMessage, 1, "decode"));
+// // 1 to 9 works and 13, 24, 25 work.
+// var newMessage2 = cipher(encodeThis, 12, "encode");
+// console.log(newMessage2);
+// console.log(cipher(newMessage2, 12, "decode"));
 
-var newMessage3 = cipher(encodeThis, 14, "encode");
-console.log(newMessage3);
-console.log(cipher(newMessage3, 14, "decode"));
+// var newMessage3 = cipher(encodeThis, 14, "encode");
+// console.log(newMessage3);
+// console.log(cipher(newMessage3, 14, "decode"));
 
-var newMessage4 = cipher(encodeThis, 20, "encode");
-console.log(newMessage4);
-console.log(cipher(newMessage4, 20, "decode"));
+// var newMessage4 = cipher(encodeThis, 20, "encode");
+// console.log(newMessage4);
+// console.log(cipher(newMessage4, 20, "decode"));
 
-var newMessage5 = cipher(encodeThis, 6, "encode");
-console.log(newMessage5);
-console.log(cipher(newMessage5, 6, "decode"));
+// var newMessage5 = cipher(encodeThis, 6, "encode");
+// console.log(newMessage5);
+// console.log(cipher(newMessage5, 6, "decode"));
+
+//Solution that I found online
+
+function caseMatcher(character) {
+  return character.match(/[a-z]/i);
+}
+
+function upperChecker(code) {
+  return (code >=65) && (code <= 90);
+}
+
+function lowerChecker(code) {
+  return (code >= 97) && (code <= 122);
+}
+
+function caesarCipher(str, offset) {
+  if (offset < 0) {
+    return caesarCipher(str, offset + 26);
+  }
+  var newStr = "";
+  for (var i = 0; i < str.length; i++) {
+
+    var character = str[i];
+    // checks for letters
+    if (caseMatcher(character)) {
+
+      var code = str.charCodeAt(i);
+      // changes the letter
+      if (upperChecker(code)) {
+        character = String.fromCharCode(((code - 65 + offset) % 26) + 65);
+      }
+      else if (lowerChecker(code)) {
+        character = String.fromCharCode(((code - 97 + offset) % 26) + 97);
+      }
+    }
+
+    // Starts creating a new string
+    newStr += character;
+
+  }
+
+  // Returns the new string
+  return newStr;
+
+}
+
+var message = caesarCipher("Free Code Camp!", 12);
+console.log(message);
+console.log(caesarCipher(message, -12));
