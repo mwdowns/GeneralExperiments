@@ -106,9 +106,9 @@ function cipher(str, offset, purpose) { // LBH QVQ VG!
 // console.log(newMessage5);
 // console.log(cipher(newMessage5, 6, "decode"));
 
-//Solution that I found online
+//Solution that I found online, but I did some refactoring on.
 
-function caseMatcher(character) {
+function letterMatcher(character) {
   return character.match(/[a-z]/i);
 }
 
@@ -128,11 +128,9 @@ function caesarCipher(str, offset) {
   for (var i = 0; i < str.length; i++) {
 
     var character = str[i];
-    // checks for letters
-    if (caseMatcher(character)) {
+    if (letterMatcher(character)) {
 
       var code = str.charCodeAt(i);
-      // changes the letter
       if (upperChecker(code)) {
         character = String.fromCharCode(((code - 65 + offset) % 26) + 65);
       }
@@ -141,12 +139,10 @@ function caesarCipher(str, offset) {
       }
     }
 
-    // Starts creating a new string
     newStr += character;
 
   }
 
-  // Returns the new string
   return newStr;
 
 }
