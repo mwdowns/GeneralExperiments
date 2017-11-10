@@ -9,20 +9,14 @@ function tensCheck(i) {
     if (i === 2) {
         return ["C", "D", "M"]
     }
-    if (i === 3) {
-        return ["M"];
-    }
+    return ["M"];
 
 }
 
 function numeral(n, i) {
     letters = tensCheck(i);
     n = parseInt(n);
-    console.log(n, i, letters);
     output = '';
-    if (n === 0) {
-        return;
-    }
     if (n > 0 && n < 4) {
         output = Array(n + 1).join(letters[0]);
     }
@@ -42,11 +36,8 @@ function numeral(n, i) {
 }
 
 function convertToRoman(num) {
-    num = num.toString();
-    num = num.split("").reverse();
+    num = num.toString().split("").reverse();
     var numLen = num.length;
-    var newNum = '';
-    console.log(numLen);
     for (var i = numLen - 1; i >= 0; i--) {
         num[i] = numeral(num[i], i);
     }
